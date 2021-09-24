@@ -1,0 +1,3 @@
+C:/Users/civel/git/code/nativelibserial/.cxx/cmake/debug/x86_64/CMakeFiles/rebuild_cache.dir
+C:/Users/civel/git/code/nativelibserial/.cxx/cmake/debug/x86_64/CMakeFiles/nativelibserial.dir
+C:/Users/civel/git/code/nativelibserial/.cxx/cmake/debug/x86_64/CMakeFiles/edit_cache.dir
