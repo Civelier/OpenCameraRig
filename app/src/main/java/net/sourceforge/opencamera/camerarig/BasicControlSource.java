@@ -22,18 +22,13 @@ public class BasicControlSource implements IControlSource
     @Override
     public void StartVideo()
     {
-        if (!app.isVideoPref())
-        {
-            app.setVideoPref(true);
-        }
-        if (prev.isVideo()) return;
         mainAct.takePicture(false);
     }
 
     @Override
     public void StopVideo()
     {
-        if (prev.isVideo()) mainAct.takePicture(false);
+        mainAct.takePicture(false);
     }
 
     @Override

@@ -232,6 +232,7 @@ public class MainActivity extends Activity {
         }
     };
     private UsbService usbService;
+    private final MainActivity main = this;
 
     private MyHandler mHandler;
     private final ServiceConnection usbConnection = new ServiceConnection() {
@@ -239,6 +240,8 @@ public class MainActivity extends Activity {
         public void onServiceConnected(ComponentName arg0, IBinder arg1) {
             usbService = ((UsbService.UsbBinder) arg1).getService();
             usbService.setHandler(mHandler);
+            controlSource = new BasicControlSource(applicationInterface, main, preview);
+            serialCom = new SerialCameraController(controlSource, usbService, main);
         }
 
         @Override
@@ -686,8 +689,7 @@ public class MainActivity extends Activity {
                 editor.putInt(PreferenceKeys.LatestVersionPreferenceKey, version_code);
                 editor.apply();
             }
-            controlSource = new BasicControlSource(applicationInterface, this, preview);
-            serialCom = new SerialCameraController(controlSource, usbService);
+
         }
 
         setModeFromIntents(savedInstanceState);
@@ -737,6 +739,7 @@ public class MainActivity extends Activity {
 
         if( MyDebug.LOG )
             Log.d(TAG, "onCreate: total time for Activity startup: " + (System.currentTimeMillis() - debug_time));
+
     }
 
     /** Whether to use codepaths that are compatible with scoped storage.

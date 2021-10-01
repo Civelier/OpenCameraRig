@@ -10,16 +10,23 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
+
+import androidx.annotation.RequiresApi;
 
 import com.felhr.usbserial.CDCSerialDevice;
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
 
+import net.sourceforge.opencamera.ToastBoxer;
+
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -170,6 +177,23 @@ public class UsbService extends Service {
     public void write(byte[] data) {
         if (serialPort != null)
             serialPort.write(data);
+    }
+
+    public void println(String data)
+    {
+        print(data + "\n");
+    }
+
+    public void print(String data)
+    {
+        Toast.makeText(context, "Printing", Toast.LENGTH_LONG);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            Log.d(TAG, "Sending: " + data);
+            write(data.getBytes(StandardCharsets.US_ASCII));
+            Toast.makeText(context, "Printed", Toast.LENGTH_LONG);
+            Log.d(TAG, "Sent");
+        }
     }
 
     public void setHandler(Handler mHandler) {
