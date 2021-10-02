@@ -186,13 +186,15 @@ public class UsbService extends Service {
 
     public void print(String data)
     {
-        Toast.makeText(context, "Printing", Toast.LENGTH_LONG);
+        Toast t = Toast.makeText(context, "Printing", Toast.LENGTH_SHORT);
+        t.show();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
-            Log.d(TAG, "Sending: " + data);
+            Log.d("SERIALPORT", "Sending: " + data);
             write(data.getBytes(StandardCharsets.US_ASCII));
-            Toast.makeText(context, "Printed", Toast.LENGTH_LONG);
-            Log.d(TAG, "Sent");
+            t = Toast.makeText(context, "Printed", Toast.LENGTH_LONG);
+            t.show();
+            Log.d("SERIALPORT", "Sent");
         }
     }
 

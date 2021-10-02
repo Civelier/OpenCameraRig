@@ -59,7 +59,7 @@ public class SerialCameraController
             StringBuilder sb = new StringBuilder();
             sb.append("Recieved: ");
             sb.append(line);
-            Log.d(TAG, sb.toString());
+            Log.d("SERIALPORT", sb.toString());
             if (line == "") return;
             if (line == "\n") return;
             line = line.trim();
@@ -86,13 +86,22 @@ public class SerialCameraController
                 case 3: // Ping
                     Log.d(TAG, "Pingged");
                     usb.println("1");
-                    Log.d(TAG, "Write ms");
-                    usb.println("3");
+                    break;
+                case 4: // Connect
+                    usb.println("4");
+                    break;
+                case 5: // Done ping
+                    usb.println("3"); // Print ping avg
                     break;
                 default:
                     break;
             }
 
+        }
+        catch (NumberFormatException e)
+        {
+            Log.d(TAG + "PARSE", Log.getStackTraceString(e));
+            Log.d(TAG + "PARSE", e.getMessage());
         }
         catch (Exception e)
         {
